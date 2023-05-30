@@ -9,18 +9,18 @@ resource "tencentcloud_cam_saml_provider" "saml_provider_basic" {
 resource "tencentcloud_cam_role" "role" {
   count = var.create_role ? 1 : 0
 
-  document = var.role_document
-  name = var.role_name
+  document      = var.role_document
+  name          = var.role_name
   console_login = var.console_login
-  description = var.role_description
-  tags = var.role_tags
+  description   = var.role_description
+  tags          = var.role_tags
 }
 
 resource "tencentcloud_cam_policy" "policy" {
   count = var.create_policy ? 1 : 0
 
-  name = var.policy_name
-  document = var.policy_document
+  name        = var.policy_name
+  document    = var.policy_document
   description = var.policy_description
 }
 
