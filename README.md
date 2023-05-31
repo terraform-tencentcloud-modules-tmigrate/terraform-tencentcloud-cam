@@ -1,6 +1,6 @@
 # terraform-tencentcloud-cam
-TencentCloud support CAM setting
 
+TencentCloud support CAM setting.
 
 ## Usage
 
@@ -71,7 +71,7 @@ module "role_oidc_sso" {
 
 ```hcl
 module "role_saml" {
-  source = "../../modules/cam-role-with-saml"
+  source = "terraform-tencentcloud-modules/cam/tencentcloud//examples/cam-role-with-saml"
 
   saml_name        = local.saml_name
   meta_data        = "your_mete_data"
@@ -123,6 +123,11 @@ module "role_saml" {
   policy_description = "create cam policy."
 }
 ```
+
+## Examples
+
+- [cam-role-with-oidc](https://github.com/terraform-tencentcloud-modules/terraform-tencentcloud-cam/tree/main/examples/cam-role-with-oidc) - Create role OIDC configuration and create cam role for identity provider
+- [cam-role-with-saml](https://github.com/terraform-tencentcloud-modules/terraform-tencentcloud-cam/tree/main/examples/cam-role-with-saml) - Create SAML identity provider and create cam role for identity provider
 
 ## Authors
 
