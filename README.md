@@ -128,6 +128,7 @@ module "role_saml" {
 
 - [cam-role-with-oidc](https://github.com/terraform-tencentcloud-modules/terraform-tencentcloud-cam/tree/main/examples/cam-role-with-oidc) - Create role OIDC configuration and create cam role for identity provider
 - [cam-role-with-saml](https://github.com/terraform-tencentcloud-modules/terraform-tencentcloud-cam/tree/main/examples/cam-role-with-saml) - Create SAML identity provider and create cam role for identity provider
+- [cam-role-with-saml](https://github.com/terraform-tencentcloud-modules/terraform-tencentcloud-cam/tree/main/examples/cam-group-user-policy) - Create cam groups、users、policies and connect them
 
 ## Authors
 
