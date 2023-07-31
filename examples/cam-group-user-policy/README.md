@@ -1,6 +1,6 @@
 # CAM policy exmaple
 
-Configuration in this directory creates CAM policies.
+Configuration in this directory creates CAM groups, users and policies.
 
 
 ## Usage
