@@ -4,6 +4,7 @@ resource "random_password" "pwds" {
   min_numeric      = 1
   min_special      = 1
   min_upper        = 1
+  min_lower        = 1
   override_special = "!#$%&*()-_=+[]{}<>:?"
 }
 
