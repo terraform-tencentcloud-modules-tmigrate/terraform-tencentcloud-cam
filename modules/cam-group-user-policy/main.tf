@@ -56,7 +56,7 @@ locals {
 # create groups
 resource "tencentcloud_cam_group" "groups" {
   for_each = var.groups
-  name   = each.key
+  name   = try(each.value.name, each.key)
   remark = try(each.value.group_remark, each.key)
 }
 
