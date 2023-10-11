@@ -67,17 +67,47 @@ EOF
 EOF
       description = "cos write only (no delete) policy"
     }
+    cos_wo_1 = {
+      // refer https://cloud.tencent.com/document/product/436/11714
+      document = <<EOF
+{
+  "version": "2.0",
+  "statement": [
+    {
+      "effect": "allow",
+      "action": [
+          "cos:ListParts",
+          "cos:PostObject",
+          "cos:PutObject*",
+          "cos:InitiateMultipartUpload",
+          "cos:UploadPart",
+          "cos:UploadPartCopy",
+          "cos:CompleteMultipartUpload",
+          "cos:AbortMultipartUpload",
+          "cos:ListMultipartUploads"
+      ],
+      "resource": ["*"]
+    }
+  ]
+}
+EOF
+      description = "cos write only (no delete) policy"
+    }
   }
 
   groups = {
     group_cos_ro = {
       group_remark = "test group cos ro"
-      policy_names = ["cos_ro", "QcloudCOSBucketConfigRead"]
+      pre_policy_names = ["QcloudCOSBucketConfigRead"]
+      custom_policy_names = ["cos_ro"]
+//      policy_names = ["cos_ro", "QcloudCOSBucketConfigRead"]
       user_names = ["test_user1@abc.com"]
     },
     group_cos_wo = {
       group_remark = "test group cos wo"
-      policy_names = ["cos_wo", "QcloudCOSBucketConfigWrite"]
+      pre_policy_names = ["QcloudCOSBucketConfigWrite"]
+      custom_policy_names = ["cos_wo", "cos_wo_1"]
+//      policy_names = ["cos_wo", "QcloudCOSBucketConfigWrite"]
       user_names = ["test_user1@abc.com", "test_user2@abc.com"]
     }
   }

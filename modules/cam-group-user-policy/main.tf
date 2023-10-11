@@ -32,22 +32,42 @@ resource "tencentcloud_cam_policy" "policies" {
   description = try(each.value.description, "")
 }
 
-# read policies
+# read all pre policies
 data "tencentcloud_cam_policies" "all" {
-  depends_on = [ tencentcloud_cam_policy.policies ]
 }
 
 locals {
   policy_map = {for policy in data.tencentcloud_cam_policies.all.policy_list: policy.name => policy.policy_id}
-  group_policies = flatten([
-    for group_name, group in var.groups: [
-      for policy_name in try(group.policy_names, []): {
+//  group_policies = flatten([
+//    for group_name, group in var.groups: [
+//      for policy_name in try(group.policy_names, []): {
+//        k = format("%s.%s", group_name, policy_name)
+//        group_id = tencentcloud_cam_group.groups[group_name].id
+//        policy_id = lookup(local.policy_map, policy_name, 0)
+//      }
+//    ]
+//  ])
+
+  group_policies = concat(
+  flatten([
+  for group_name, group in var.groups: [
+    for policy_name in try(group.pre_policy_names, []): {
         k = format("%s.%s", group_name, policy_name)
         group_id = tencentcloud_cam_group.groups[group_name].id
         policy_id = lookup(local.policy_map, policy_name, 0)
       }
     ]
-  ])
+  ]),
+  flatten([
+    for group_name, group in var.groups: [
+      for policy_name in try(group.custom_policy_names, []): {
+        k = format("%s.%s", group_name, policy_name)
+        group_id = tencentcloud_cam_group.groups[group_name].id
+        policy_id = tencentcloud_cam_policy.policies[policy_name].id
+      }
+    ]
+  ]),
+  )
   group_policy_map = {for group_policy in local.group_policies: group_policy.k => group_policy}
 
   group_with_users = {for group_name, group in var.groups: group_name => group if length(try(group.user_names, [])) > 0 }
