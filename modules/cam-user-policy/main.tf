@@ -64,7 +64,7 @@ locals {
   create_access_keys = {
     for user_key, user in var.users: user_key => {
       target_uin = tencentcloud_cam_user.users[user_key].uin
-      status = try(user.status, "Active")  // activated (Active) or inactive (Inactive)
+      status = try(user.access_key_status, "Active")  // activated (Active) or inactive (Inactive)
     } if try(user.create_access_key, false)
   }
 }
