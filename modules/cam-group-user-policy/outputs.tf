@@ -8,9 +8,9 @@ output "user_ids" {
   description = "user ids"
 }
 output "user_passwords" {
-  value       = { for user_name, user in tencentcloud_cam_user.users: user_name => nonsensitive(user.password) }
+  value       = { for user_name, user in tencentcloud_cam_user.users: user_name => user.password }
   description = "user passwords"
-  //  sensitive = true
+  sensitive = true
 }
 
 output "policy_ids" {
