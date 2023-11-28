@@ -109,8 +109,8 @@ resource "tencentcloud_cam_mfa_flag" "mfa_flag" {
     wechat = try(each.value.mfa_options.login_flag.wechat, false) ? 1: 0
   }
   action_flag {
-    phone  = try(each.value.mfa_options.login_flag.phone, false) ? 1: 0
-    stoken = try(each.value.mfa_options.login_flag.stoken, false) ? 1: 0
-    wechat = try(each.value.mfa_options.login_flag.wechat, false) ? 1: 0
+    phone  = try(each.value.mfa_options.action_flag.phone, false) ? 1: 0
+    stoken = try(each.value.mfa_options.action_flag.stoken, false) ? 1: 0
+    wechat = try(each.value.mfa_options.action_flag.wechat, false) ? 1: 0
   }
 }
