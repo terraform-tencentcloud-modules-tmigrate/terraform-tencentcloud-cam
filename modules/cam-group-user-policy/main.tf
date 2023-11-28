@@ -24,6 +24,10 @@ resource "tencentcloud_cam_user" "users" {
   tags = try(each.value.user_tags, {})
 }
 
+data "tencentcloud_cam_users" "all" {
+  depends_on = [tencentcloud_cam_user.users]
+}
+
 # create policies
 resource "tencentcloud_cam_policy" "policies" {
   for_each = var.policies
@@ -47,6 +51,9 @@ locals {
 //      }
 //    ]
 //  ])
+  user_uins = {
+    for user in data.tencentcloud_cam_users.all.user_list: user.name => user.uin
+  }
 
   group_policies = concat(
   flatten([
@@ -102,7 +109,7 @@ resource "tencentcloud_cam_group_membership" "foo" {
 # enable mfa
 resource "tencentcloud_cam_mfa_flag" "mfa_flag" {
   for_each = local.mfas
-  op_uin = tencentcloud_cam_user.users[each.key].uin
+  op_uin = local.user_uins[each.key]
   login_flag {
     phone  = try(each.value.mfa_options.login_flag.phone, false) ? 1: 0
     stoken = try(each.value.mfa_options.login_flag.stoken, false) ? 1: 0
