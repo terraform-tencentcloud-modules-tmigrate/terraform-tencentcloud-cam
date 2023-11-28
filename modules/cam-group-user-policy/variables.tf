@@ -4,6 +4,12 @@ variable "users" {
   description = "Map of users to create. Name is the map key.see `tencentcloud_cam_user` "
 }
 
+variable "mfas" {
+  type = any
+  default = {}
+  description = "Map of mfas to create. Name is the map key.see `tencentcloud_cam_mfa_flag` "
+}
+
 variable "groups" {
   type = any
   default = {}

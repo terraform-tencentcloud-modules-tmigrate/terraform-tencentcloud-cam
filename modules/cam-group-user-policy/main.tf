@@ -71,7 +71,7 @@ locals {
   group_policy_map = {for group_policy in local.group_policies: group_policy.k => group_policy}
 
   group_with_users = {for group_name, group in var.groups: group_name => group if length(try(group.user_names, [])) > 0 }
-  mfas = { for user_name, user in var.users: user_name => user if try(user.enable_mfa, false)}
+  mfas = { for user_name, mfa in var.mfas: user_name => mfa if try(user.enable_mfa, false)}
 
 }
 
