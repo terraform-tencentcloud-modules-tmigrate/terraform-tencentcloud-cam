@@ -71,6 +71,8 @@ locals {
   group_policy_map = {for group_policy in local.group_policies: group_policy.k => group_policy}
 
   group_with_users = {for group_name, group in var.groups: group_name => group if length(try(group.user_names, [])) > 0 }
+  mfas = { for user_name, user in var.users: user_name => user if try(user.enable_mfa, false)}
+
 }
 
 # create groups
@@ -95,4 +97,20 @@ resource "tencentcloud_cam_group_membership" "foo" {
   depends_on = [
     tencentcloud_cam_user.users
   ]
+}
+
+# enable mfa
+resource "tencentcloud_cam_mfa_flag" "mfa_flag" {
+  for_each = local.mfas
+  op_uin = tencentcloud_cam_user.users[each.key].uin
+  login_flag {
+    phone  = 1
+    stoken = 0
+    wechat = 0
+  }
+  action_flag {
+    phone  = 1
+    stoken = 0
+    wechat = 0
+  }
 }
