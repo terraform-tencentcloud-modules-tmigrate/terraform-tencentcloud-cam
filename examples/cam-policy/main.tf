@@ -2,8 +2,8 @@
 # CAM policy
 #########################################
 module "cam_policy" {
-  source = "../../modules/cam-policy"
-  name = "bob-tf-policy"
+  source      = "../../modules/cam-policy"
+  name        = "bob-tf-policy"
   description = "My example policy"
 
   policy = <<EOF
