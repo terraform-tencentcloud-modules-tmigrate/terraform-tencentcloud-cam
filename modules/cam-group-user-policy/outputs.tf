@@ -17,3 +17,11 @@ output "policy_ids" {
   value       = { for name, policy in tencentcloud_cam_policy.policies:  name => policy.id }
   description = "policy ids"
 }
+
+output "group_users" {
+  value = {
+    for k, group in local.group_with_users: k => {
+      for user_name in group.user_names: user_name => try(tencentcloud_cam_user.users[user_name].id, "non-created-user")
+    }
+  }
+}
