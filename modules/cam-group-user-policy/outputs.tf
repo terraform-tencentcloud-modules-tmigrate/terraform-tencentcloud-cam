@@ -18,10 +18,10 @@ output "policy_ids" {
   description = "policy ids"
 }
 
-output "group_users" {
+output "group_users_uins" {
   value = {
     for k, group in local.group_with_users: k => {
-      for user_name in group.user_names: user_name => try(tencentcloud_cam_user.users[user_name].id, "non-created-user")
+      for user_name in group.user_names: user_name => try(tencentcloud_cam_user.users[user_name].uin, "non-created-user")
     }
   }
 }
