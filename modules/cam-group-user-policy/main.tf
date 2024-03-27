@@ -25,7 +25,7 @@ resource "tencentcloud_cam_user" "users" {
 }
 
 data "tencentcloud_cam_users" "all" {
-  depends_on = [tencentcloud_cam_user.users]
+  #  depends_on = [tencentcloud_cam_user.users]
 }
 
 # create policies
@@ -42,38 +42,51 @@ data "tencentcloud_cam_policies" "all" {
 
 locals {
   policy_map = {for policy in data.tencentcloud_cam_policies.all.policy_list: policy.name => policy.policy_id}
-//  group_policies = flatten([
-//    for group_name, group in var.groups: [
-//      for policy_name in try(group.policy_names, []): {
-//        k = format("%s.%s", group_name, policy_name)
-//        group_id = tencentcloud_cam_group.groups[group_name].id
-//        policy_id = lookup(local.policy_map, policy_name, 0)
-//      }
-//    ]
-//  ])
+  //  group_policies = flatten([
+  //    for group_name, group in var.groups: [
+  //      for policy_name in try(group.policy_names, []): {
+  //        k = format("%s.%s", group_name, policy_name)
+  //        group_id = tencentcloud_cam_group.groups[group_name].id
+  //        policy_id = lookup(local.policy_map, policy_name, 0)
+  //      }
+  //    ]
+  //  ])
+  created_uins = {
+    for k, user in tencentcloud_cam_user.users: user.name => user.uin
+  }
+  created_uids = {
+    for k, user in tencentcloud_cam_user.users: user.name => user.uid
+  }
+
   user_uins = {
     for user in data.tencentcloud_cam_users.all.user_list: user.name => user.uin
   }
+  user_uids = {
+    for user in data.tencentcloud_cam_users.all.user_list: user.name => user.uid
+  }
+
+  all_uins = merge(local.user_uins, local.created_uins)
+  all_uids = merge(local.user_uids, local.created_uids)
 
   group_policies = concat(
-  flatten([
-  for group_name, group in var.groups: [
-    for policy_name in try(group.pre_policy_names, []): {
-        k = format("%s.%s", group_name, policy_name)
-        group_id = tencentcloud_cam_group.groups[group_name].id
-        policy_id = lookup(local.policy_map, policy_name, 0)
-      }
-    ]
-  ]),
-  flatten([
-    for group_name, group in var.groups: [
-      for policy_name in try(group.custom_policy_names, []): {
-        k = format("%s.%s", group_name, policy_name)
-        group_id = tencentcloud_cam_group.groups[group_name].id
-        policy_id = tencentcloud_cam_policy.policies[policy_name].id
-      }
-    ]
-  ]),
+    flatten([
+      for group_name, group in var.groups: [
+        for policy_name in try(group.pre_policy_names, []): {
+          k = format("%s.%s", group_name, policy_name)
+          group_id = tencentcloud_cam_group.groups[group_name].id
+          policy_id = lookup(local.policy_map, policy_name, 0)
+        }
+      ]
+    ]),
+    flatten([
+      for group_name, group in var.groups: [
+        for policy_name in try(group.custom_policy_names, []): {
+          k = format("%s.%s", group_name, policy_name)
+          group_id = tencentcloud_cam_group.groups[group_name].id
+          policy_id = tencentcloud_cam_policy.policies[policy_name].id
+        }
+      ]
+    ]),
   )
   group_policy_map = {for group_policy in local.group_policies: group_policy.k => group_policy}
 
@@ -109,7 +122,7 @@ resource "tencentcloud_cam_group_membership" "foo" {
 # enable mfa
 resource "tencentcloud_cam_mfa_flag" "mfa_flag" {
   for_each = local.mfas
-  op_uin = local.user_uins[each.key]
+  op_uin = local.all_uins[each.key]
   login_flag {
     phone  = try(each.value.mfa_options.login_flag.phone, false) ? 1: 0
     stoken = try(each.value.mfa_options.login_flag.stoken, false) ? 1: 0
