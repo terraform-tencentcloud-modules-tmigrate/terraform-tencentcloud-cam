@@ -7,7 +7,7 @@ Configuration in this directory creates CAM groups, users and policies.
 
 To run this example you need to execute:
 
-> Prepare user information
+> Prepare user information, just generate the json below into users.json and run terraform
 
 ```bash 
 
