@@ -7,5 +7,4 @@ output "user_passwords" {
   description = "The user passwords"
   value = module.cam_group_user_policy.user_passwords
   sensitive = true
-
 }
