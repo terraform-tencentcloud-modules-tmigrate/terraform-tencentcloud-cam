@@ -25,7 +25,6 @@ To run this example you need to execute:
     "user2": {
         "email": "test_user2@abc.com",
         "user_remark": "user2",
-        "password": "Passw0rd!@#",
         "phone_num": "13800138000",
         "country_code": "86",
         "need_reset_password": false,
