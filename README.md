@@ -8,7 +8,7 @@ TencentCloud support CAM setting.
 
 ```hcl
 module "role_oidc_sso" {
-  source = "terraform-tencentcloud-modules/cam/tencentcloud//examples/cam-role-with-oidc"
+  source = "terraform-tencentcloud-modules/cam/tencentcloud//modules/cam-role-with-oidc"
 
   create_role   = true
   create_policy = true
@@ -71,7 +71,7 @@ module "role_oidc_sso" {
 
 ```hcl
 module "role_saml" {
-  source = "terraform-tencentcloud-modules/cam/tencentcloud//examples/cam-role-with-saml"
+  source = "terraform-tencentcloud-modules/cam/tencentcloud//modules/cam-role-with-saml"
 
   saml_name        = local.saml_name
   meta_data        = "your_mete_data"
@@ -128,7 +128,7 @@ module "role_saml" {
 
 - [cam-role-with-oidc](https://github.com/terraform-tencentcloud-modules/terraform-tencentcloud-cam/tree/main/examples/cam-role-with-oidc) - Create role OIDC configuration and create cam role for identity provider
 - [cam-role-with-saml](https://github.com/terraform-tencentcloud-modules/terraform-tencentcloud-cam/tree/main/examples/cam-role-with-saml) - Create SAML identity provider and create cam role for identity provider
-- [cam-role-with-saml](https://github.com/terraform-tencentcloud-modules/terraform-tencentcloud-cam/tree/main/examples/cam-group-user-policy) - Create cam groups、users、policies and connect them
+- [cam-group-user-policy](https://github.com/terraform-tencentcloud-modules/terraform-tencentcloud-cam/tree/main/examples/cam-group-user-policy) - Create cam groups, users, policies and connect them
 
 ## Authors
 

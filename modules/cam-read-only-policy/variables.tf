@@ -30,10 +30,10 @@ variable "allowed_services" {
 
 variable "additional_policy" {
   description = "policy if you want to add custom actions"
-  type        = list(object({
-                         action = list(string)
-                         effect = string
-                         resource = list(string)
-                     }))
-  default     = []
+  type = list(object({
+    action   = list(string)
+    effect   = string
+    resource = list(string)
+  }))
+  default = []
 }

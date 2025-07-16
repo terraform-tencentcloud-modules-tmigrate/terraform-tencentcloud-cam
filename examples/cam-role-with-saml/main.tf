@@ -60,4 +60,3 @@ module "role_saml" {
   EOF
   policy_description = "create cam policy."
 }
-
