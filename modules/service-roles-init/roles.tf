@@ -147,7 +147,8 @@ EOF
   tags = var.tags
   lifecycle {
     ignore_changes = [
-      document # this value should not be changed.
+      document, # this value should not be changed.
+      description
     ]
   }
 }
