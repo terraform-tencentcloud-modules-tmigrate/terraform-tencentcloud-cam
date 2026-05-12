@@ -3,7 +3,7 @@ locals {
   linked_service_role_names = {
     WAF = {
       access = ["access.waf.cloud.tencent.com"],
-      csip_globalscene = ["csip.cloud.tencent.com"]
+      # csip_globalscene = ["csip.cloud.tencent.com"]
     }
     Advisor_BusinessContinuity = {
       role1 = ["businesscontinuity.advisor.cloud.tencent.com"]
