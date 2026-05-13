@@ -44,7 +44,8 @@ locals {
       description = "Cloud Audit permissions (including but not limited to): CAM(QcloudCamReadOnlyAccess );CVM(QcloudCVMReadOnlyAccess);VPC(QcloudVPCReadOnlyAccess);MySQL(QcloudCDBInnerReadOnlyAccess);CLB(QcloudCLBReadOnlyAccess);AS(QcloudASReadOnlyAccess);COS(QcloudCOSReadOnlyAccess,put bucket);CMQ(add/query queue); KMS(add/query key)."
       service     = "cloudaudit.cloud.tencent.com"
       policies    = [
-        "QcloudAccessForCARole"
+        "QcloudAccessForCARole",
+        "QcloudAccessForCloudAuditRoleInMultipleaccountTrailDelivery"
       ]
     }
     TSE_QCSRole = {
