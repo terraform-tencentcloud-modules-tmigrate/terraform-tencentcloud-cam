@@ -47,6 +47,9 @@ locals {
     PrivateDNS_PL = {
       role1 = ["privatedns.cloud.tencent.com"]
     }
+    Accountsentmngs = {
+      role1 = ["accountsentmng.controlcenter.cloud.tencent.com"]
+    }
   }
 
   service_linked_roles = flatten([
