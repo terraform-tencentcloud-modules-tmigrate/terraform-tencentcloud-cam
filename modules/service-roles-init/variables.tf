@@ -38,6 +38,7 @@ variable "linked_service_roles" {
     SSL_CertificateDependence = optional(bool, true)
     TAT_COS = optional(bool, true)
     PrivateDNS_PL = optional(bool, true)
+    Accountsentmngs = optional(bool, false)
   })
   default = {}
 }
