@@ -31,7 +31,7 @@ variable "linked_service_roles" {
     TDMQ_VPCdomainbinding = optional(bool, true)
     Beian_Resource = optional(bool, true)
     CLB_Certificate = optional(bool, true)
-    TIC_IaC = optional(bool, false)
+    TIC_IaC = optional(bool, true)
     VPC_FlowLog = optional(bool, true)
     TEO_Certlist = optional(bool, true)
     TEO_RealTimeLogCLS = optional(bool, true)
