@@ -109,6 +109,14 @@ locals {
         "QcloudCLSFullAccess",
       ]
     }
+    CVM_QcsRole = {
+      name        = "CVM_QcsRole"
+      description = "当前角色为云服务器（CVM）服务角色，该角色将在已关联策略的权限范围内访问您的其他云服务资源。"
+      service     = "cvm.qcloud.com"
+      policies    = [
+        "QcloudKMSAccessForCVMRole"
+      ]
+    }
   }
 
   create_roles = {

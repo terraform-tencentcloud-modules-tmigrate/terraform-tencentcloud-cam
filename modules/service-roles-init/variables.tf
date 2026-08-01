@@ -12,6 +12,7 @@ variable "service_roles" {
     TCSS_QCSRole = optional(bool, true)
     CLB_QCSRole = optional(bool, true)
     Datahub_QcsRole = optional(bool, true)
+    CVM_QcsRole = optional(bool, true)
   })
   default = {}
 }
